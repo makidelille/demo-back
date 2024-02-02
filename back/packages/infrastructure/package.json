@@ -1,0 +1,24 @@
+{
+  "name": "@back/infrastructure",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "files": [
+    "dist/"
+  ],
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+    
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@back/domain": "*"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "typescript": "^5.3.3"
+  }
+}
