@@ -2,7 +2,7 @@ import { symbols } from "../../shared/symbols";
 import { Product } from "../entity/product";
 import { IProduct, IUpdateProduct, productSchema, updateProductSchema } from "../interfaces/product";
 import { IProductRepository } from "../interfaces/productRepository";
-import type {DependencyContainer} from "tsyringe"
+import type { DependencyContainer } from "tsyringe"
 
 export class ProductService {
     private readonly productRepository: IProductRepository;
@@ -12,14 +12,15 @@ export class ProductService {
     }
 
 
-    getAll(query: any = {}){
-        return this.productRepository.findMany(query);
+    async getAll(query: any = {}) {
+        const productDtos = await this.productRepository.findMany(query);
+        return productDtos.map(Product.fromDTO);
     }
 
     async getOneById(id: number) {
-        const product = await this.productRepository.findOne(id);
-        if(product == null) throw new Error("Could not find product");
-        return product;
+        const productDto = await this.productRepository.findOne(id);
+        if (productDto == null) throw new Error("Could not find product");
+        return Product.fromDTO(productDto);
     }
 
     async updateOne(id: number, input: IUpdateProduct) {
@@ -27,7 +28,7 @@ export class ProductService {
         const product = await this.getOneById(id);
 
         product.update(newProperties);
-        await this.productRepository.saveOne(product);
+        await this.productRepository.saveOne(product.id, product.asDTO());
     }
 
     async deleteOne(id: number) {
@@ -35,11 +36,10 @@ export class ProductService {
         await this.productRepository.deleteOne(product.id);
     }
 
-    async createOne(input: IProduct){
+    async createOne(input: IProduct) {
         const productDTO = productSchema.parse(input);
         const product = new Product(productDTO);
-
-        return this.productRepository.saveOne(product);
+        return this.productRepository.saveOne(product.id, product.asDTO());
     }
-    
+
 }

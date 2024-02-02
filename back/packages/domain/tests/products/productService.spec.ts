@@ -14,8 +14,8 @@ describe('productService', () => {
     beforeEach(() => {
         productRepository = {
             deleteOne: jest.fn(),
-            findMany: jest.fn(),
-            findOne: jest.fn().mockImplementation((value) => value === 1234 ? new Product({id: 1234} as any) : null),
+            findMany: jest.fn().mockResolvedValue([]),
+            findOne: jest.fn().mockImplementation((value) => value === 1234 ? {id: 1234} : null),
             saveOne: jest.fn()
         };
 
@@ -61,7 +61,7 @@ describe('productService', () => {
             }
             await productService.createOne(newProduct);
 
-            expect(productRepository.saveOne).toHaveBeenCalledWith(expect.objectContaining({props: newProduct}));
+            expect(productRepository.saveOne).toHaveBeenCalledWith(1234, expect.objectContaining(newProduct));
         });
 
         it('should update an existing product', async () => {
@@ -73,7 +73,7 @@ describe('productService', () => {
             await productService.updateOne(1234, newProps);
 
             expect(spy).toHaveBeenCalledWith(1234);
-            expect(productRepository.saveOne).toHaveBeenCalledWith(expect.objectContaining({props: expect.objectContaining(newProps)}));
+            expect(productRepository.saveOne).toHaveBeenCalledWith(1234, expect.objectContaining(newProps));
         });
 
         it('Shoulde delete an existing product', async () => {
