@@ -7,7 +7,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "cd packages/api && npm run start",
+    "build": "turbo build",
+    "test": "turbo test"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +18,7 @@
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.0"
+    "eslint-plugin-prettier": "^5.0.0",
+    "turbo": "^1.12.2"
   }
 }

@@ -6,6 +6,7 @@ export * from './products/entity/product';
 export * from './products/interfaces/product';
 export * from './products/interfaces/productRepository';
 export * from './products/services/productService';
+export * from './shared/domainError';
 export * from './shared/symbols';
 export * from './shared/entities/entity';
 export * from './shared/interfaces/repository';

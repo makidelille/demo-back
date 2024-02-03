@@ -1,8 +1,8 @@
 import { IProduct, IProductRepository } from '@back/domain';
-import { BaseMongoRepository } from './baseMongoRepository';
+import { BaseFileRepository } from './baseFileRepository';
 
-export class ProductMongoRepository
-  extends BaseMongoRepository<IProduct>
+export class ProductFileRepository
+  extends BaseFileRepository<IProduct>
   implements IProductRepository
 {
   constructor() {

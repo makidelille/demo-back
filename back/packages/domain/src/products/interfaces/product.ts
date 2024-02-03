@@ -1,7 +1,7 @@
-import {z} from "zod";
+import { z } from 'zod';
 
-
-export const productSchema = z.object({
+export const productSchema = z
+  .object({
     id: z.number(),
     code: z.string(),
     name: z.string(),
@@ -11,10 +11,10 @@ export const productSchema = z.object({
     inventoryStatus: z.string(),
     category: z.string(),
     image: z.string().optional(),
-    rating: z.string().optional()
-});
-export const updateProductSchema = productSchema.omit({id: true}).partial();
-
+    rating: z.number().optional(),
+  })
+  .strict();
+export const updateProductSchema = productSchema.omit({ id: true }).partial();
 
 export type IProduct = z.TypeOf<typeof productSchema>;
 export type IUpdateProduct = z.TypeOf<typeof updateProductSchema>;
