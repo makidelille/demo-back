@@ -1,4 +1,4 @@
-import { IProduct, IUpdateProduct, ProductService } from '@back/domain';
+import { ProductService } from '@back/domain';
 import {
     Body,
     Controller,
@@ -9,6 +9,11 @@ import {
     Patch,
     Post,
 } from '@nestjs/common';
+import { ApiCreatedResponse } from '@nestjs/swagger';
+import {
+    ProductSwaggerModel,
+    UpdateProductSwaggerModel,
+} from './models/ProductSwaggerModel';
 import { ProductViewModel } from './models/ProductViewModel';
 
 @Controller('products')
@@ -23,7 +28,8 @@ export class ProductsController {
 
   @Post('')
   @HttpCode(201)
-  public async createProduct(@Body() body: IProduct) {
+  @ApiCreatedResponse()
+  public async createProduct(@Body() body: ProductSwaggerModel) {
     await this.productService.createOne(body);
   }
 
@@ -36,7 +42,7 @@ export class ProductsController {
   @Patch(':id')
   public async updateProduct(
     @Param(':id') id: number,
-    @Body() body: IUpdateProduct,
+    @Body() body: UpdateProductSwaggerModel,
   ) {
     await this.productService.updateOne(id, body);
   }
