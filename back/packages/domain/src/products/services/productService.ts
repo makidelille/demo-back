@@ -1,15 +1,15 @@
 import type { DependencyContainer } from 'tsyringe';
 import {
-    NotFoundDomainError,
-    ValidationDomainError,
+  NotFoundDomainError,
+  ValidationDomainError,
 } from '../../shared/domainError';
 import { symbols } from '../../shared/symbols';
 import { Product } from '../entity/product';
 import {
-    IProduct,
-    IUpdateProduct,
-    productSchema,
-    updateProductSchema,
+  IProduct,
+  IUpdateProduct,
+  productSchema,
+  updateProductSchema,
 } from '../interfaces/product';
 import { IProductRepository } from '../interfaces/productRepository';
 
