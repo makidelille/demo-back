@@ -90,7 +90,7 @@ describe('productService', () => {
 
     it('should not update if not existing properties', async () => {
       const newProps = {
-        invalid: 'invalid property',
+        price: 'invalid property',
       };
 
       await expect(
