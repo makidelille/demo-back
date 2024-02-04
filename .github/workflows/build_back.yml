@@ -1,0 +1,26 @@
+on: push
+name: Test and build back
+concurrency: 
+    group: ${{github.ref}}/back
+    cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Load repository
+        uses: actions/checkout@master
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+            node-version: 20
+            cache: npm
+            cache-dependency-path: "**/package-lock.json"
+      - name: Install dependencies
+        run: npm ci 
+        working-directory: back
+      - name: Build
+        run: npm run build
+        working-directory: back
+      - name: test
+        run: npm run test
+        working-directory: back
