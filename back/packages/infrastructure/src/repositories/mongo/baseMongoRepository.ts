@@ -12,10 +12,10 @@ export abstract class BaseMongoRepository<T> implements IRepository<T> {
   }
 
   findMany(filter: any): Promise<T[]> {
-    return this.collection.find(filter).toArray();
+    return this.collection.find(filter, { projection: { _id: 0 } }).toArray();
   }
   findOne(id: number): Promise<T | null> {
-    return this.collection.findOne<T>({ id });
+    return this.collection.findOne<T>({ id }, { projection: { _id: 0 } });
   }
   async saveOne(id: number, props: T): Promise<void> {
     await this.collection.updateOne({ id }, { $set: props }, { upsert: true });
